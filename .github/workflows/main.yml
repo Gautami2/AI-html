@@ -30,7 +30,8 @@ jobs:
 
     - name: Restart Apache2
       run: |
-        sudo service apache2 restart
+        sudo systemctl restart apache2
+
         with:
           host: ${{ secrets.HOST }}
           username:  ${{ secrets.USER }}
