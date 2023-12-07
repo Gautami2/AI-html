@@ -22,6 +22,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         script: |
           cd AI-html
+        
           git pull origin main 
 
     - name: Install Apache2
