@@ -30,7 +30,6 @@ jobs:
         
     - name: Set up SSH and deploy
       run: |
-        eval "$(SSH_AGENT_S)"
         ssh-add <(echo "$SSH_PRIVATE_KEY")
         scp -r ./html/* ubuntu@65.2.168.216:/var/www/html/
       env:
