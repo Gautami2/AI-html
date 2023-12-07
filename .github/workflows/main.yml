@@ -35,4 +35,4 @@ jobs:
         SSH_PORT: ${{ secrets.SSH_PORT }}
         SSH_KEY: ${{ secrets.SSH_KEY }}
       run: |
-       "systemctl restart apache2"
+       "sudo service apache2 restart"
