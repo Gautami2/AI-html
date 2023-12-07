@@ -13,6 +13,17 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Deploy to Ubuntu Server on AWS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd AI-html
+          git pull origin main 
+
     - name: Install Apache2
       run: |
         sudo apt-get update
@@ -28,13 +39,4 @@ jobs:
         sudo chown -R www-data:www-data /var/www/html
         sudo chmod -R 755 /var/www/html
         
-    - name: Restart Apache on Remote Server
-      run: |
-        ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} -i "${{ secrets.SSH_KEY }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} sudo systemctl restart apache2
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }} 
-        SSH_PORT: ${{ secrets.SSH_PORT }}
-        SSH_KEY: ${{ secrets.SSH_KEY }}
-    
-
+  
