@@ -32,7 +32,7 @@ jobs:
       run: |
         scp -r ./html/* ubuntu@65.2.168.216:/var/www/html/
 
-       env:
+      env:
          SSH_HOST: ${{ secrets.SSH_HOST }}
 
     - name: Restart Apache on Remote Server
