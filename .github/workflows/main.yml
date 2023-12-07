@@ -29,10 +29,11 @@ jobs:
         sudo chmod -R 755 /var/www/html
 
     - name: Restart Apache on Remote Server
+      with:
       env:
         SSH_HOST: ${{ secrets.SSH_HOST }}
         SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
         SSH_KEY: ${{ secrets.SSH_KEY }}
       run: |
-       "service apache2 restart"
+       "sudo service apache2 restart"
