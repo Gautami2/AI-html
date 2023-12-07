@@ -16,15 +16,15 @@ jobs:
     - name: Deploy to Ubuntu Server on AWS
       uses: actions/checkout@v2
 
-      with:
+      env:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
       
-        run: |
-          echo "$SSH_KEY" > ssh_key && chmod 600 ssh_key
-          ssh -o StrictHostKeyChecking=no -i ssh_key ${USER_NAME}@${HOSTNAME} 
+      run: |
+        echo "$SSH_KEY" > ssh_key && chmod 600 ssh_key
+        ssh -o StrictHostKeyChecking=no -i ssh_key ${USER_NAME}@${HOSTNAME} 
         
 
     - name: Install Apache2
