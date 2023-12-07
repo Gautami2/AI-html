@@ -29,11 +29,12 @@ jobs:
         sudo chmod -R 755 /var/www/html
         
     - name: Restart Apache on Remote Server
+      run: |
+        ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} -i "${{ secrets.SSH_KEY }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} sudo systemctl restart apache2
       env:
         SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }} 
         SSH_PORT: ${{ secrets.SSH_PORT }}
         SSH_KEY: ${{ secrets.SSH_KEY }}
-      run: |
-        ssh -o StrictHostKeyChecking=no -p $SSH_PORT -i $SSH_KEY $SSH_USERNAME@$SSH_HOST sudo systemctl restart apache2
+    
 
