@@ -21,23 +21,19 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd AI-html
-          git pull origin main 
 
+      run: |
+        echo "$SSH_KEY" > ssh_key && chmod 600 ssh_key
+        ssh -o StrictHostKeyChecking=no -i ssh_key ${USER_NAME}@${HOSTNAME} '
     - name: Install Apache2
       run: |
         sudo apt-get update
         sudo apt-get install apache2 -y
         sudo service apache2 start
-
     - name: Copy HTML Project to Apache2 Document Root
       run: |
         sudo cp -r * /var/www/html/
-
     - name: Set Permissions (adjust as needed)
       run: |
         sudo chown -R www-data:www-data /var/www/html
         sudo chmod -R 755 /var/www/html
-        
-  
