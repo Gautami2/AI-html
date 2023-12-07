@@ -28,13 +28,15 @@ jobs:
         sudo chown -R www-data:www-data /var/www/html
         sudo chmod -R 755 /var/www/html
         
-    - name: Deploy to Live Server
+    - name: Set up SSH and deploy
       run: |
-        scp -r ./html/* ubuntu@65.2.168.216:/var/www/html/
-
+        eval "$(ssh-agent -s)"
+        ssh-add <(echo "$SSH_PRIVATE_KEY")
+        scp -r ./html/* ubuntu@your-server-ip:/var/www/html/
       env:
-         SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Restart Apache on Remote Server
       run: |
         sudo service apache2 restart
+
