@@ -27,6 +27,14 @@ jobs:
       run: |
         sudo chown -R www-data:www-data /var/www/html
         sudo chmod -R 755 /var/www/html
+        
+    - name: Deploy to Live Server
+      run: |
+        scp -r ./dist/* user@your-server:/path/to/destination/
+
+       env:
+         LIVE_SERVER_SECRET: ${{ secrets.LIVE_SERVER_SECRET }}
+
 
     - name: Restart Apache on Remote Server
       run: |
