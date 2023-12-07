@@ -33,8 +33,7 @@ jobs:
         scp -r ./dist/* user@your-server:/path/to/destination/
 
        env:
-         LIVE_SERVER_SECRET: ${{ secrets.LIVE_SERVER_SECRET }}
-
+         SSH_HOST: ${{ secrets.SSH_HOST }}
 
     - name: Restart Apache on Remote Server
       run: |
