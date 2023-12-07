@@ -21,10 +21,11 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd AI-html
+      
+        run: |
+          echo "$SSH_KEY" > ssh_key && chmod 600 ssh_key
+          ssh -o StrictHostKeyChecking=no -i ssh_key ${USER_NAME}@${HOSTNAME} 
         
-          git pull origin main 
 
     - name: Install Apache2
       run: |
