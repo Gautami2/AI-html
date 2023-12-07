@@ -30,7 +30,6 @@ jobs:
 
     - name: Restart Apache on Remote Server
       with:
-      env:
         SSH_HOST: ${{ secrets.SSH_HOST }}
         SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
