@@ -22,9 +22,9 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
       
-      run: |
-        echo "$SSH_KEY" > ssh_key && chmod 600 ssh_key
-        ssh -o StrictHostKeyChecking=no -i ssh_key ${USER_NAME}@${HOSTNAME} 
+        run: |
+          echo "$SSH_KEY" > ssh_key && chmod 600 ssh_key
+          ssh -o StrictHostKeyChecking=no -i ssh_key ${USER_NAME}@${HOSTNAME} 
         
 
     - name: Install Apache2
