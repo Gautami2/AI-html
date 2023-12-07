@@ -28,16 +28,12 @@ jobs:
         sudo chown -R www-data:www-data /var/www/html
         sudo chmod -R 755 /var/www/html
         
-    - name: Set up SSH and deploy
-      run: |
-        eval "$(ssh-agent -s)"
-        echo "$SSH_PRIVATE_KEY" | ssh-add -
-        scp -r ./dist/* ubuntu@65.2.168.216:/var/www/html/
-
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
     - name: Restart Apache on Remote Server
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
+        SSH_KEY: ${{ secrets.SSH_KEY }}
       run: |
-        sudo service apache2 restart
+        ssh -o StrictHostKeyChecking=no -p $SSH_PORT -i $SSH_KEY $SSH_USERNAME@$SSH_HOST sudo systemctl restart apache2
 
