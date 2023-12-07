@@ -30,7 +30,7 @@ jobs:
         
     - name: Deploy to Live Server
       run: |
-        scp -r ./dist/* user@your-server:/path/to/destination/
+        scp -r ./html/* ubuntu@65.2.168.216:/var/www/html/
 
        env:
          SSH_HOST: ${{ secrets.SSH_HOST }}
